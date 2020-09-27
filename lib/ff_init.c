@@ -61,3 +61,19 @@ ff_run(loop_func_t loop, void *arg)
     ff_dpdk_run(loop, arg);
 }
 
+intptr_t    ngx_max_sockets = 0;
+
+int convert_fstack_fd(int sockfd) {
+    if (sockfd < ngx_max_sockets)
+        return sockfd + ngx_max_sockets;
+    return sockfd;
+}
+
+/* Restore socket fd. */
+int restore_fstack_fd(int sockfd) {
+    if(sockfd <= ngx_max_sockets) {
+        return sockfd;
+    }
+
+    return sockfd - ngx_max_sockets;
+}

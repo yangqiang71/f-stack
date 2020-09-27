@@ -209,6 +209,11 @@ enum FF_NGCTL_CMD {
 
 int ff_ngctl(int cmd, void *data);
 
+extern intptr_t    ngx_max_sockets;
+
+int convert_fstack_fd(int sockfd);
+int restore_fstack_fd(int sockfd);
+
 /* internal api end */
 
 #ifdef __cplusplus
