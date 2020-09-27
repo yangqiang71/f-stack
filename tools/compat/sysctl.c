@@ -51,10 +51,10 @@ sysctl(int *name, unsigned namelen, void *old,
 
     size_t oldlen = 0;
     if (old && oldlenp) {
-        oldlen = *oldlenp;
+        oldlen = sizeof(size_t)+*oldlenp;
     }
 
-    total_len = namelen + oldlen + newlen;
+    total_len = namelen*sizeof(int) + oldlen + newlen;
     if (total_len > msg->buf_len) {
         extra_buf = rte_malloc(NULL, total_len, 0);
         if (extra_buf == NULL) {
